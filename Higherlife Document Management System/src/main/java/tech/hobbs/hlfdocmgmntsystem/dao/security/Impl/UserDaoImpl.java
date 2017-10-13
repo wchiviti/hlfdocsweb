@@ -7,7 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import tech.hobbs.hlfdocmgmntsystem.dao.AbstractDao;
+import tech.hobbs.hlfdocmgmntsystem.dao.genericdao.AbstractDao;
 import tech.hobbs.hlfdocmgmntsystem.dao.security.UserDao;
 import tech.hobbs.hlfdocmgmntsystem.model.security.User;
 

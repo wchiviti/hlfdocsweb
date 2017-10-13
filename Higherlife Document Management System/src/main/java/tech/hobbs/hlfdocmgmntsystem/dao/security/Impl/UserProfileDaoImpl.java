@@ -7,7 +7,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import tech.hobbs.hlfdocmgmntsystem.dao.AbstractDao;
+import tech.hobbs.hlfdocmgmntsystem.dao.genericdao.AbstractDao;
 import tech.hobbs.hlfdocmgmntsystem.dao.security.UserProfileDao;
 import tech.hobbs.hlfdocmgmntsystem.model.security.UserProfile;
 

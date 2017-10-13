@@ -1,4 +1,4 @@
-package tech.hobbs.hlfdocmgmntsystem.dao;
+package tech.hobbs.hlfdocmgmntsystem.dao.genericdao;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
