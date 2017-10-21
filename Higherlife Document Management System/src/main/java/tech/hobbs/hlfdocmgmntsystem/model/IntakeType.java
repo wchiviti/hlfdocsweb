@@ -17,29 +17,34 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
- * @author Wilsonc
+ * @author Wilson Chiviti
  */
 @Entity
 @Table(name = "intake_types")
 @NamedQueries({
-    @NamedQuery(name = "IntakeTypes.findAll", query = "SELECT i FROM IntakeTypes i")
-    , @NamedQuery(name = "IntakeTypes.findByIntakeId", query = "SELECT i FROM IntakeTypes i WHERE i.intakeId = :intakeId")
-    , @NamedQuery(name = "IntakeTypes.findByIntakeName", query = "SELECT i FROM IntakeTypes i WHERE i.intakeName = :intakeName")})
+    @NamedQuery(name = "IntakeType.findAll", query = "SELECT i FROM IntakeType i")
+    , @NamedQuery(name = "IntakeType.findByIntakeId", query = "SELECT i FROM IntakeType i WHERE i.intakeId = :intakeId")
+    , @NamedQuery(name = "IntakeType.findByIntakeName", query = "SELECT i FROM IntakeType i WHERE i.intakeName = :intakeName")})
 public class IntakeType implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "intake_id")
     private Integer intakeId;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "intake_name")
     private String intakeName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "intakeId", fetch = FetchType.LAZY)
-    private List<TertiaryStudent> tertiaryStudentsList;
+    private List<TertiaryStudent> tertiaryStudentList;
 
     public IntakeType() {
     }
@@ -69,12 +74,12 @@ public class IntakeType implements Serializable {
         this.intakeName = intakeName;
     }
 
-    public List<TertiaryStudent> getTertiaryStudentsList() {
-        return tertiaryStudentsList;
+    public List<TertiaryStudent> getTertiaryStudentList() {
+        return tertiaryStudentList;
     }
 
-    public void setTertiaryStudentsList(List<TertiaryStudent> tertiaryStudentsList) {
-        this.tertiaryStudentsList = tertiaryStudentsList;
+    public void setTertiaryStudentList(List<TertiaryStudent> tertiaryStudentList) {
+        this.tertiaryStudentList = tertiaryStudentList;
     }
 
     @Override
@@ -99,7 +104,7 @@ public class IntakeType implements Serializable {
 
     @Override
     public String toString() {
-        return "tech.hobbs.hlfdocmgmntsystem.model.IntakeTypes[ intakeId=" + intakeId + " ]";
+        return "tech.hobbs.hlfdocmgmntsystem.model.IntakeType[ intakeId=" + intakeId + " ]";
     }
     
 }

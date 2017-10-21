@@ -1,16 +1,16 @@
 package tech.hobbs.hlfdocmgmntsystem.dao;
 
 import tech.hobbs.hlfdocmgmntsystem.dao.genericdao.AbstractDaoInterface;
-import tech.hobbs.hlfdocmgmntsystem.model.HlfStaff;
+import tech.hobbs.hlfdocmgmntsystem.model.HlfStaffMember;
 
-public interface HlfstaffDao extends AbstractDaoInterface<HlfStaff> {
+public interface HlfstaffDao extends AbstractDaoInterface<HlfStaffMember> {
 	
-	HlfStaff findByFileno(String fileNo);
+	HlfStaffMember findByFileno(String fileNo);
 	
-	HlfStaff findByName(String name);
+	HlfStaffMember findByName(String name);
 	
-	HlfStaff findByEmailAddress(String emailAddrees);
+	HlfStaffMember findByEmailAddress(String emailAddrees);
 	
-	HlfStaff findBySurname(String surname);
+	HlfStaffMember findBySurname(String surname);
 
 }

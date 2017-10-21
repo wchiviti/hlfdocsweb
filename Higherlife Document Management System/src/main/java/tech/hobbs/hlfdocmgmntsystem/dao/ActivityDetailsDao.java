@@ -2,16 +2,16 @@ package tech.hobbs.hlfdocmgmntsystem.dao;
 
 import java.util.List;
 
-import tech.hobbs.hlfdocmgmntsystem.model.ActivityDetails;
+import tech.hobbs.hlfdocmgmntsystem.model.ActivityDetail;
 
 public interface ActivityDetailsDao {
 	
-	public ActivityDetails findByImpartedPeople(int numberOfImpartedPeople);
+	public ActivityDetail findByImpartedPeople(int numberOfImpartedPeople);
 	
-	public List<ActivityDetails> findAll();
+	public List<ActivityDetail> findAll();
 
-	public void saveOrUpdate(ActivityDetails activity);
+	public void saveOrUpdate(ActivityDetail activity);
 
-	public void deleteActivity(ActivityDetails activity);
+	public void deleteActivity(ActivityDetail activity);
 
 }

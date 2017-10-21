@@ -17,37 +17,43 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
- * @author Wilsonc
+ * @author Wilson Chiviti
  */
 @Entity
 @Table(name = "tertiary_institutions")
 @NamedQueries({
-    @NamedQuery(name = "TertiaryInstitutions.findAll", query = "SELECT t FROM TertiaryInstitutions t")
-    , @NamedQuery(name = "TertiaryInstitutions.findByTertiaryCode", query = "SELECT t FROM TertiaryInstitutions t WHERE t.tertiaryCode = :tertiaryCode")
-    , @NamedQuery(name = "TertiaryInstitutions.findByTertiaryName", query = "SELECT t FROM TertiaryInstitutions t WHERE t.tertiaryName = :tertiaryName")})
+    @NamedQuery(name = "TertiaryInstitution.findAll", query = "SELECT t FROM TertiaryInstitution t")
+    , @NamedQuery(name = "TertiaryInstitution.findByTertiaryCode", query = "SELECT t FROM TertiaryInstitution t WHERE t.tertiaryCode = :tertiaryCode")
+    , @NamedQuery(name = "TertiaryInstitution.findByTertiaryName", query = "SELECT t FROM TertiaryInstitution t WHERE t.tertiaryName = :tertiaryName")})
 public class TertiaryInstitution implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "tertiary_code")
     private String tertiaryCode;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 300)
     @Column(name = "tertiary_name")
     private String tertiaryName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tertiaryCode", fetch = FetchType.LAZY)
-    private List<ActivityImage> activityImagesList;
+    private List<ActivityImage> activityImageList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tertiaryCode", fetch = FetchType.LAZY)
-    private List<ActivityVideo> activityVideosList;
+    private List<TertiaryStudent> tertiaryStudentList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tertiaryCode", fetch = FetchType.LAZY)
-    private List<TertiaryStudent> tertiaryStudentsList;
+    private List<ActivityVideo> activityVideoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tertiaryCode", fetch = FetchType.LAZY)
-    private List<Activity> activitiesList;
+    private List<Activity> activityList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tertiaryCode", fetch = FetchType.LAZY)
-    private List<ActivityReport> activityReportsList;
+    private List<ActivityReport> activityReportList;
 
     public TertiaryInstitution() {
     }
@@ -77,44 +83,44 @@ public class TertiaryInstitution implements Serializable {
         this.tertiaryName = tertiaryName;
     }
 
-    public List<ActivityImage> getActivityImagesList() {
-        return activityImagesList;
+    public List<ActivityImage> getActivityImageList() {
+        return activityImageList;
     }
 
-    public void setActivityImagesList(List<ActivityImage> activityImagesList) {
-        this.activityImagesList = activityImagesList;
+    public void setActivityImageList(List<ActivityImage> activityImageList) {
+        this.activityImageList = activityImageList;
     }
 
-    public List<ActivityVideo> getActivityVideosList() {
-        return activityVideosList;
+    public List<TertiaryStudent> getTertiaryStudentList() {
+        return tertiaryStudentList;
     }
 
-    public void setActivityVideosList(List<ActivityVideo> activityVideosList) {
-        this.activityVideosList = activityVideosList;
+    public void setTertiaryStudentList(List<TertiaryStudent> tertiaryStudentList) {
+        this.tertiaryStudentList = tertiaryStudentList;
     }
 
-    public List<TertiaryStudent> getTertiaryStudentsList() {
-        return tertiaryStudentsList;
+    public List<ActivityVideo> getActivityVideoList() {
+        return activityVideoList;
     }
 
-    public void setTertiaryStudentsList(List<TertiaryStudent> tertiaryStudentsList) {
-        this.tertiaryStudentsList = tertiaryStudentsList;
+    public void setActivityVideoList(List<ActivityVideo> activityVideoList) {
+        this.activityVideoList = activityVideoList;
     }
 
-    public List<Activity> getActivitiesList() {
-        return activitiesList;
+    public List<Activity> getActivityList() {
+        return activityList;
     }
 
-    public void setActivitiesList(List<Activity> activitiesList) {
-        this.activitiesList = activitiesList;
+    public void setActivityList(List<Activity> activityList) {
+        this.activityList = activityList;
     }
 
-    public List<ActivityReport> getActivityReportsList() {
-        return activityReportsList;
+    public List<ActivityReport> getActivityReportList() {
+        return activityReportList;
     }
 
-    public void setActivityReportsList(List<ActivityReport> activityReportsList) {
-        this.activityReportsList = activityReportsList;
+    public void setActivityReportList(List<ActivityReport> activityReportList) {
+        this.activityReportList = activityReportList;
     }
 
     @Override
@@ -139,7 +145,7 @@ public class TertiaryInstitution implements Serializable {
 
     @Override
     public String toString() {
-        return "tech.hobbs.hlfdocmgmntsystem.model.TertiaryInstitutions[ tertiaryCode=" + tertiaryCode + " ]";
+        return "tech.hobbs.hlfdocmgmntsystem.model.TertiaryInstitution[ tertiaryCode=" + tertiaryCode + " ]";
     }
     
 }

@@ -13,25 +13,30 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
- * @author Wilsonc
+ * @author Wilson Chiviti
  */
 @Entity
 @Table(name = "schools")
 @NamedQueries({
-    @NamedQuery(name = "Schools.findAll", query = "SELECT s FROM Schools s")
-    , @NamedQuery(name = "Schools.findBySchoolId", query = "SELECT s FROM Schools s WHERE s.schoolId = :schoolId")
-    , @NamedQuery(name = "Schools.findBySchoolName", query = "SELECT s FROM Schools s WHERE s.schoolName = :schoolName")})
+    @NamedQuery(name = "School.findAll", query = "SELECT s FROM School s")
+    , @NamedQuery(name = "School.findBySchoolId", query = "SELECT s FROM School s WHERE s.schoolId = :schoolId")
+    , @NamedQuery(name = "School.findBySchoolName", query = "SELECT s FROM School s WHERE s.schoolName = :schoolName")})
 public class School implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "school_id")
     private Integer schoolId;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 300)
     @Column(name = "school_name")
     private String schoolName;
 
@@ -85,7 +90,7 @@ public class School implements Serializable {
 
     @Override
     public String toString() {
-        return "tech.hobbs.hlfdocmgmntsystem.model.Schools[ schoolId=" + schoolId + " ]";
+        return "tech.hobbs.hlfdocmgmntsystem.model.School[ schoolId=" + schoolId + " ]";
     }
     
 }

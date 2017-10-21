@@ -17,29 +17,33 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Wilsonc
+ * @author Wilson Chiviti
  */
 @Entity
 @Table(name = "progress_reports")
 @NamedQueries({
-    @NamedQuery(name = "ProgressReports.findAll", query = "SELECT p FROM ProgressReports p")
-    , @NamedQuery(name = "ProgressReports.findByReportId", query = "SELECT p FROM ProgressReports p WHERE p.reportId = :reportId")
-    , @NamedQuery(name = "ProgressReports.findByYear", query = "SELECT p FROM ProgressReports p WHERE p.year = :year")})
+    @NamedQuery(name = "ProgressReport.findAll", query = "SELECT p FROM ProgressReport p")
+    , @NamedQuery(name = "ProgressReport.findByReportId", query = "SELECT p FROM ProgressReport p WHERE p.reportId = :reportId")
+    , @NamedQuery(name = "ProgressReport.findByYear", query = "SELECT p FROM ProgressReport p WHERE p.year = :year")})
 public class ProgressReport implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "report_id")
     private Integer reportId;
     @Basic(optional = false)
+    @NotNull
     @Lob
     @Column(name = "progress_report")
     private byte[] progressReport;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "year")
     private int year;
     @JoinColumn(name = "fileno", referencedColumnName = "fileno")
@@ -124,7 +128,7 @@ public class ProgressReport implements Serializable {
 
     @Override
     public String toString() {
-        return "tech.hobbs.hlfdocmgmntsystem.model.ProgressReports[ reportId=" + reportId + " ]";
+        return "tech.hobbs.hlfdocmgmntsystem.model.ProgressReport[ reportId=" + reportId + " ]";
     }
     
 }

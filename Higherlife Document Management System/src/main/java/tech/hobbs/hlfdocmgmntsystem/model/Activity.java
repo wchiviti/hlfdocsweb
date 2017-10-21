@@ -22,42 +22,52 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
- * @author Wilsonc
+ * @author Wilson Chiviti
  */
 @Entity
 @Table(name = "activities")
 @NamedQueries({
-    @NamedQuery(name = "Activities.findAll", query = "SELECT a FROM Activities a")
-    , @NamedQuery(name = "Activities.findByActivityNo", query = "SELECT a FROM Activities a WHERE a.activityNo = :activityNo")
-    , @NamedQuery(name = "Activities.findByActivityId", query = "SELECT a FROM Activities a WHERE a.activityId = :activityId")
-    , @NamedQuery(name = "Activities.findByOrgarnizer", query = "SELECT a FROM Activities a WHERE a.orgarnizer = :orgarnizer")
-    , @NamedQuery(name = "Activities.findByActivityName", query = "SELECT a FROM Activities a WHERE a.activityName = :activityName")
-    , @NamedQuery(name = "Activities.findByDateOfActivity", query = "SELECT a FROM Activities a WHERE a.dateOfActivity = :dateOfActivity")})
+    @NamedQuery(name = "Activity.findAll", query = "SELECT a FROM Activity a")
+    , @NamedQuery(name = "Activity.findByActivityNo", query = "SELECT a FROM Activity a WHERE a.activityNo = :activityNo")
+    , @NamedQuery(name = "Activity.findByActivityId", query = "SELECT a FROM Activity a WHERE a.activityId = :activityId")
+    , @NamedQuery(name = "Activity.findByOrgarnizer", query = "SELECT a FROM Activity a WHERE a.orgarnizer = :orgarnizer")
+    , @NamedQuery(name = "Activity.findByActivityName", query = "SELECT a FROM Activity a WHERE a.activityName = :activityName")
+    , @NamedQuery(name = "Activity.findByDateOfActivity", query = "SELECT a FROM Activity a WHERE a.dateOfActivity = :dateOfActivity")})
 public class Activity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "activity_no")
     private int activityNo;
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "activity_id")
     private String activityId;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 300)
     @Column(name = "orgarnizer")
     private String orgarnizer;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 300)
     @Column(name = "activity_name")
     private String activityName;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "date_of_activity")
     @Temporal(TemporalType.DATE)
     private Date dateOfActivity;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "activityId", fetch = FetchType.LAZY)
-    private List<ActivityDetails> activityDetailsList;
+    private List<ActivityDetail> activityDetailList;
     @JoinColumn(name = "tertiary_code", referencedColumnName = "tertiary_code")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private TertiaryInstitution tertiaryCode;
@@ -117,12 +127,12 @@ public class Activity implements Serializable {
         this.dateOfActivity = dateOfActivity;
     }
 
-    public List<ActivityDetails> getActivityDetailsList() {
-        return activityDetailsList;
+    public List<ActivityDetail> getActivityDetailList() {
+        return activityDetailList;
     }
 
-    public void setActivityDetailsList(List<ActivityDetails> activityDetailsList) {
-        this.activityDetailsList = activityDetailsList;
+    public void setActivityDetailList(List<ActivityDetail> activityDetailList) {
+        this.activityDetailList = activityDetailList;
     }
 
     public TertiaryInstitution getTertiaryCode() {
@@ -155,7 +165,7 @@ public class Activity implements Serializable {
 
     @Override
     public String toString() {
-        return "tech.hobbs.hlfdocmgmntsystem.model.Activities[ activityId=" + activityId + " ]";
+        return "tech.hobbs.hlfdocmgmntsystem.model.Activity[ activityId=" + activityId + " ]";
     }
     
 }

@@ -17,35 +17,42 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
- * @author Wilsonc
+ * @author Wilson Chiviti
  */
 @Entity
 @Table(name = "programs")
 @NamedQueries({
-    @NamedQuery(name = "Programs.findAll", query = "SELECT p FROM Programs p")
-    , @NamedQuery(name = "Programs.findByProgramCode", query = "SELECT p FROM Programs p WHERE p.programCode = :programCode")
-    , @NamedQuery(name = "Programs.findByProgramName", query = "SELECT p FROM Programs p WHERE p.programName = :programName")
-    , @NamedQuery(name = "Programs.findByProgramLegnth", query = "SELECT p FROM Programs p WHERE p.programLegnth = :programLegnth")})
+    @NamedQuery(name = "Program.findAll", query = "SELECT p FROM Program p")
+    , @NamedQuery(name = "Program.findByProgramCode", query = "SELECT p FROM Program p WHERE p.programCode = :programCode")
+    , @NamedQuery(name = "Program.findByProgramName", query = "SELECT p FROM Program p WHERE p.programName = :programName")
+    , @NamedQuery(name = "Program.findByProgramLegnth", query = "SELECT p FROM Program p WHERE p.programLegnth = :programLegnth")})
 public class Program implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "program_code")
     private String programCode;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 300)
     @Column(name = "program_name")
     private String programName;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "program_legnth")
     private int programLegnth;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "programCode", fetch = FetchType.LAZY)
-    private List<TertiaryStudent> tertiaryStudentsList;
+    private List<TertiaryStudent> tertiaryStudentList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "programCode", fetch = FetchType.LAZY)
-    private List<StudentResults> studentResultsList;
+    private List<StudentResult> studentResultList;
 
     public Program() {
     }
@@ -84,20 +91,20 @@ public class Program implements Serializable {
         this.programLegnth = programLegnth;
     }
 
-    public List<TertiaryStudent> getTertiaryStudentsList() {
-        return tertiaryStudentsList;
+    public List<TertiaryStudent> getTertiaryStudentList() {
+        return tertiaryStudentList;
     }
 
-    public void setTertiaryStudentsList(List<TertiaryStudent> tertiaryStudentsList) {
-        this.tertiaryStudentsList = tertiaryStudentsList;
+    public void setTertiaryStudentList(List<TertiaryStudent> tertiaryStudentList) {
+        this.tertiaryStudentList = tertiaryStudentList;
     }
 
-    public List<StudentResults> getStudentResultsList() {
-        return studentResultsList;
+    public List<StudentResult> getStudentResultList() {
+        return studentResultList;
     }
 
-    public void setStudentResultsList(List<StudentResults> studentResultsList) {
-        this.studentResultsList = studentResultsList;
+    public void setStudentResultList(List<StudentResult> studentResultList) {
+        this.studentResultList = studentResultList;
     }
 
     @Override
@@ -122,7 +129,7 @@ public class Program implements Serializable {
 
     @Override
     public String toString() {
-        return "tech.hobbs.hlfdocmgmntsystem.model.Programs[ programCode=" + programCode + " ]";
+        return "tech.hobbs.hlfdocmgmntsystem.model.Program[ programCode=" + programCode + " ]";
     }
     
 }

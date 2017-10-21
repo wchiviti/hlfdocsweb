@@ -1,71 +1,106 @@
 package tech.hobbs.hlfdocmgmntsystem.model.security;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import tech.hobbs.hlfdocmgmntsystem.model.Student;
+
+	
 @Entity
-@Table(name="AFC_GROUPS")
-public class UserProfile {
+@Table(name = "groups")
+@NamedQueries({
+    @NamedQuery(name = "UserProfile.findAll", query = "SELECT p FROM UserProfile p")
+    , @NamedQuery(name = "UserProfile.findByGroupId", query = "SELECT p FROM UserProfile p WHERE p.groupId = :groupId")
+    , @NamedQuery(name = "UserProfile.findByGroupName", query = "SELECT p FROM UserProfile p WHERE p.groupName = :groupName")})
+public class UserProfile implements Serializable {
 
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;	
-
-	@Column(name="GROUP_NAME", length=15, unique=true, nullable=false)
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "group_id")
+    private Integer groupId;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "group_name")
+    private String groupName;
+    
+    @JoinTable(name = "user_groups", joinColumns = {
+        @JoinColumn(name = "group_id", referencedColumnName = "group_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "fileno", referencedColumnName = "fileno")})
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Student> studentList;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "profileId", fetch = FetchType.LAZY)
+    private List<User> userList;
+    
+    @Column(name="GROUP_NAME", length=15, unique=true, nullable=false)
 	private String type = UserProfileType.USER.getUserProfileType();
-	
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public UserProfile() {
+    }
 
-	public String getType() {
-		return type;
-	}
+    public UserProfile(Integer groupId) {
+        this.groupId = groupId;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public UserProfile(Integer groupId, String groupName) {
+        this.groupId = groupId;
+        this.groupName = groupName;
+    }
 
+    public Integer getGroupId() {
+        return groupId;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		return result;
-	}
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof UserProfile))
-			return false;
-		UserProfile other = (UserProfile) obj;
-		if (id != other.id)
-			return false;
-		if (type == null) {
-			if (other.type != null)
-				return false;
-		} else if (!type.equals(other.type))
-			return false;
-		return true;
-	}
+    public String getGroupName() {
+        return groupName;
+    }
 
-	@Override
-	public String toString() {
-		return this.type;
-	}
-	
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
 
+    public List<Student> getStudentList() {
+        return studentList;
+    }
+
+    public void setStudentList(List<Student> studentList) {
+        this.studentList = studentList;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
+    @Override
+    public String toString() {
+        return "tech.hobbs.hlfdocmgmntsystem.model.Profile[ groupId=" + groupId + " ]";
+    }
+    
 }

@@ -17,29 +17,34 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
- * @author Wilsonc
+ * @author Wilson Chiviti
  */
 @Entity
 @Table(name = "results_decisions")
 @NamedQueries({
-    @NamedQuery(name = "ResultsDecisions.findAll", query = "SELECT r FROM ResultsDecisions r")
-    , @NamedQuery(name = "ResultsDecisions.findByDecisionId", query = "SELECT r FROM ResultsDecisions r WHERE r.decisionId = :decisionId")
-    , @NamedQuery(name = "ResultsDecisions.findByResultsDecision", query = "SELECT r FROM ResultsDecisions r WHERE r.resultsDecision = :resultsDecision")})
+    @NamedQuery(name = "ResultsDecision.findAll", query = "SELECT r FROM ResultsDecision r")
+    , @NamedQuery(name = "ResultsDecision.findByDecisionId", query = "SELECT r FROM ResultsDecision r WHERE r.decisionId = :decisionId")
+    , @NamedQuery(name = "ResultsDecision.findByResultsDecision", query = "SELECT r FROM ResultsDecision r WHERE r.resultsDecision = :resultsDecision")})
 public class ResultsDecision implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "decision_id")
     private Integer decisionId;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "results_decision")
     private String resultsDecision;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "decisionId", fetch = FetchType.LAZY)
-    private List<StudentResults> studentResultsList;
+    private List<StudentResult> studentResultList;
 
     public ResultsDecision() {
     }
@@ -69,12 +74,12 @@ public class ResultsDecision implements Serializable {
         this.resultsDecision = resultsDecision;
     }
 
-    public List<StudentResults> getStudentResultsList() {
-        return studentResultsList;
+    public List<StudentResult> getStudentResultList() {
+        return studentResultList;
     }
 
-    public void setStudentResultsList(List<StudentResults> studentResultsList) {
-        this.studentResultsList = studentResultsList;
+    public void setStudentResultList(List<StudentResult> studentResultList) {
+        this.studentResultList = studentResultList;
     }
 
     @Override
@@ -99,7 +104,7 @@ public class ResultsDecision implements Serializable {
 
     @Override
     public String toString() {
-        return "tech.hobbs.hlfdocmgmntsystem.model.ResultsDecisions[ decisionId=" + decisionId + " ]";
+        return "tech.hobbs.hlfdocmgmntsystem.model.ResultsDecision[ decisionId=" + decisionId + " ]";
     }
     
 }

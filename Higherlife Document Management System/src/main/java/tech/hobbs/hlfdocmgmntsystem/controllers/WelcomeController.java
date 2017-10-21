@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class WelcomeController {
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/landing", method = RequestMethod.GET)
 	public String showWelcomePage(){
 		System.out.println(" This the welcome page showing");
-		return "welcome";
+		return "redirect:/login";
 	}
 
 }

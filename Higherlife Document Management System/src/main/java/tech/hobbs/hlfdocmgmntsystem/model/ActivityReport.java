@@ -20,41 +20,52 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
- * @author Wilsonc
+ * @author Wilson Chiviti
  */
 @Entity
 @Table(name = "activity_reports")
 @NamedQueries({
-    @NamedQuery(name = "ActivityReports.findAll", query = "SELECT a FROM ActivityReports a")
-    , @NamedQuery(name = "ActivityReports.findByReportId", query = "SELECT a FROM ActivityReports a WHERE a.reportId = :reportId")
-    , @NamedQuery(name = "ActivityReports.findByReportNo", query = "SELECT a FROM ActivityReports a WHERE a.reportNo = :reportNo")
-    , @NamedQuery(name = "ActivityReports.findByActivityName", query = "SELECT a FROM ActivityReports a WHERE a.activityName = :activityName")
-    , @NamedQuery(name = "ActivityReports.findByDateOfActivity", query = "SELECT a FROM ActivityReports a WHERE a.dateOfActivity = :dateOfActivity")
-    , @NamedQuery(name = "ActivityReports.findByOrganizer", query = "SELECT a FROM ActivityReports a WHERE a.organizer = :organizer")})
+    @NamedQuery(name = "ActivityReport.findAll", query = "SELECT a FROM ActivityReport a")
+    , @NamedQuery(name = "ActivityReport.findByReportId", query = "SELECT a FROM ActivityReport a WHERE a.reportId = :reportId")
+    , @NamedQuery(name = "ActivityReport.findByReportNo", query = "SELECT a FROM ActivityReport a WHERE a.reportNo = :reportNo")
+    , @NamedQuery(name = "ActivityReport.findByActivityName", query = "SELECT a FROM ActivityReport a WHERE a.activityName = :activityName")
+    , @NamedQuery(name = "ActivityReport.findByDateOfActivity", query = "SELECT a FROM ActivityReport a WHERE a.dateOfActivity = :dateOfActivity")
+    , @NamedQuery(name = "ActivityReport.findByOrganizer", query = "SELECT a FROM ActivityReport a WHERE a.organizer = :organizer")})
 public class ActivityReport implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "report_id")
     private Integer reportId;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "report_no")
     private String reportNo;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 300)
     @Column(name = "activity_name")
     private String activityName;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "date_of_activity")
     @Temporal(TemporalType.DATE)
     private Date dateOfActivity;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 300)
     @Column(name = "organizer")
     private String organizer;
     @Basic(optional = false)
+    @NotNull
     @Lob
     @Column(name = "reportdoc")
     private byte[] reportdoc;
@@ -167,7 +178,7 @@ public class ActivityReport implements Serializable {
 
     @Override
     public String toString() {
-        return "tech.hobbs.hlfdocmgmntsystem.model.ActivityReports[ reportId=" + reportId + " ]";
+        return "tech.hobbs.hlfdocmgmntsystem.model.ActivityReport[ reportId=" + reportId + " ]";
     }
     
 }

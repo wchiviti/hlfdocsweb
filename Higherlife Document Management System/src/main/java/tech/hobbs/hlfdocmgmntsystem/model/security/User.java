@@ -3,6 +3,7 @@ package tech.hobbs.hlfdocmgmntsystem.model.security;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,43 +12,50 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import tech.hobbs.hlfdocmgmntsystem.model.Student;
+
 @Entity
-@Table(name="AFC_USER")
+@Table(name = "users")
+@NamedQueries({
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+    , @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id")
+    , @NamedQuery(name = "User.findBySsoId", query = "SELECT u FROM User u WHERE u.ssoId = :ssoId")})
 public class User {
 
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="user_id")
+	@Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id")
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int id;
 	
 
-	@NotEmpty
-	@Column(name="username", unique=true, nullable=false)
+	@Basic(optional = false)
+    @NotNull
+    @Lob
+    @Column(name = "username")
 	private String ssoId;
 	
-	@NotEmpty
-	@Column(name="PASSWORD", nullable=false)
+	
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Column(name = "password")
 	private String password;
 	
 	@Transient
 	private String confirmPassword;
-		
-	@NotEmpty
-	@Column(name="FIRST_NAME", nullable=false)
-	private String firstName;
-
-	@NotEmpty
-	@Column(name="LAST_NAME", nullable=false)
-	private String lastName;
-
-	@NotEmpty
-	@Column(name="EMAIL", nullable=false)
-	private String email;
 
 	@NotEmpty
 	@Column(name="ACCOUNT_STATUS", nullable=false)
@@ -58,6 +66,22 @@ public class User {
              joinColumns = { @JoinColumn(name = "USER_ID") }, 
              inverseJoinColumns = { @JoinColumn(name = "USER_GROUP_ID") })
 	private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
+	
+
+    @JoinColumn(name = "group_id", referencedColumnName = "group_id" , insertable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private UserProfile profile;
+    
+    @Column(name = "group_id")
+    private Integer profileId;
+    
+
+    @JoinColumn(name = "fileno", referencedColumnName = "fileno", insertable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Student student;
+    
+    @Column(name = "fileno")
+    private String fileno;
 
 	public int getId() {
 		return id;
@@ -81,30 +105,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getState() {
@@ -131,40 +131,39 @@ public class User {
 		this.confirmPassword = confirmPassword;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		result = prime * result + ((ssoId == null) ? 0 : ssoId.hashCode());
-		return result;
+	public UserProfile getProfile() {
+		return profile;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof User))
-			return false;
-		User other = (User) obj;
-		if (id != other.id)
-			return false;
-		if (ssoId == null) {
-			if (other.ssoId != null)
-				return false;
-		} else if (!ssoId.equals(other.ssoId))
-			return false;
-		return true;
+	public void setProfile(UserProfile profile) {
+		this.profile = profile;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", ssoId=" + ssoId + ", password=" + password
-				+ ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", email=" + email + ", state=" + state + ", userProfiles=" + userProfiles +"]";
+	public Integer getProfileId() {
+		return profileId;
 	}
+
+	public void setProfileId(Integer profileId) {
+		this.profileId = profileId;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
+	public String getFileno() {
+		return fileno;
+	}
+
+	public void setFileno(String fileno) {
+		this.fileno = fileno;
+	}
+
+	
 
 	
 }

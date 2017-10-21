@@ -17,24 +17,27 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Wilsonc
+ * @author Wilson Chiviti
  */
 @Entity
 @Table(name = "activity_proposals")
 @NamedQueries({
-    @NamedQuery(name = "ActivityProposals.findAll", query = "SELECT a FROM ActivityProposals a")
-    , @NamedQuery(name = "ActivityProposals.findByProposalId", query = "SELECT a FROM ActivityProposals a WHERE a.proposalId = :proposalId")})
+    @NamedQuery(name = "ActivityProposal.findAll", query = "SELECT a FROM ActivityProposal a")
+    , @NamedQuery(name = "ActivityProposal.findByProposalId", query = "SELECT a FROM ActivityProposal a WHERE a.proposalId = :proposalId")})
 public class ActivityProposal implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "proposal_id")
     private Integer proposalId;
     @Basic(optional = false)
+    @NotNull
     @Lob
     @Column(name = "proposalfile")
     private byte[] proposalfile;
@@ -111,7 +114,7 @@ public class ActivityProposal implements Serializable {
 
     @Override
     public String toString() {
-        return "tech.hobbs.hlfdocmgmntsystem.model.ActivityProposals[ proposalId=" + proposalId + " ]";
+        return "tech.hobbs.hlfdocmgmntsystem.model.ActivityProposal[ proposalId=" + proposalId + " ]";
     }
     
 }

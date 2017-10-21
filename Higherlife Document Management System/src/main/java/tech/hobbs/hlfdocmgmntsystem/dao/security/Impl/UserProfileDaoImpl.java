@@ -2,34 +2,64 @@ package tech.hobbs.hlfdocmgmntsystem.dao.security.Impl;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
+import javax.persistence.TypedQuery;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import tech.hobbs.hlfdocmgmntsystem.dao.genericdao.AbstractDao;
 import tech.hobbs.hlfdocmgmntsystem.dao.security.UserProfileDao;
 import tech.hobbs.hlfdocmgmntsystem.model.security.UserProfile;
-
-
+import tech.hobbs.hlfdocmgmntsystem.model.security.UserProfileType;
 
 @Repository("userProfileDao")
-public class UserProfileDaoImpl extends AbstractDao<Integer, UserProfile>implements UserProfileDao{
+public class UserProfileDaoImpl implements UserProfileDao{
+	
+	@Autowired
+	SessionFactory sessionFactory;
 
-	@SuppressWarnings("unchecked")
+	@Override
 	public List<UserProfile> findAll(){
-		Criteria crit = createEntityCriteria();
-		crit.addOrder(Order.asc("type"));
-		return (List<UserProfile>)crit.list();
+		Session session = sessionFactory.getCurrentSession();
+		TypedQuery<UserProfile> query = session.createNamedQuery("UserProfile.findAll",UserProfile.class);
+		List<UserProfile> userProfilelist = query.getResultList();
+		session.flush();
+		return userProfilelist;
 	}
 	
+	@Override
 	public UserProfile findById(int id) {
-		return getByKey(id);
+		Session session = sessionFactory.getCurrentSession();
+		TypedQuery<UserProfile> query = session.createNamedQuery("UserProfile.findByGroupId",UserProfile.class)
+				.setParameter("groupId", id);
+		UserProfile userProfile = query.getSingleResult();
+		session.flush();
+		return userProfile;
 	}
 	
-	public UserProfile findByType(String type) {
-		Criteria crit = createEntityCriteria();
-		crit.add(Restrictions.eq("type", type));
-		return (UserProfile) crit.uniqueResult();
+	@Override
+	public UserProfile findByType(UserProfileType userProfileType) {
+		Session session = sessionFactory.getCurrentSession();
+		TypedQuery<UserProfile> query = session.createNamedQuery("UserProfile.findByGroupName",UserProfile.class)
+				.setParameter("groupName", userProfileType.getUserProfileType());
+		UserProfile userProfile = query.getSingleResult();
+		session.flush();
+		return userProfile;
 	}
+
+	@Override
+	public void saveOrUpdate(UserProfile model) {
+		Session session = sessionFactory.getCurrentSession();
+		session.saveOrUpdate(model);
+		session.flush();
+	}
+
+	@Override
+	public void delete(UserProfile model) {
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(model);
+		session.flush();
+	}
+
 }

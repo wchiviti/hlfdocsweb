@@ -17,29 +17,34 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
- * @author Wilsonc
+ * @author Wilson Chiviti
  */
 @Entity
 @Table(name = "activity_initiation_types")
 @NamedQueries({
-    @NamedQuery(name = "ActivityInitiationTypes.findAll", query = "SELECT a FROM ActivityInitiationTypes a")
-    , @NamedQuery(name = "ActivityInitiationTypes.findByInitiationId", query = "SELECT a FROM ActivityInitiationTypes a WHERE a.initiationId = :initiationId")
-    , @NamedQuery(name = "ActivityInitiationTypes.findByInitiationType", query = "SELECT a FROM ActivityInitiationTypes a WHERE a.initiationType = :initiationType")})
+    @NamedQuery(name = "ActivityInitiationType.findAll", query = "SELECT a FROM ActivityInitiationType a")
+    , @NamedQuery(name = "ActivityInitiationType.findByInitiationId", query = "SELECT a FROM ActivityInitiationType a WHERE a.initiationId = :initiationId")
+    , @NamedQuery(name = "ActivityInitiationType.findByInitiationType", query = "SELECT a FROM ActivityInitiationType a WHERE a.initiationType = :initiationType")})
 public class ActivityInitiationType implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "initiation_id")
     private Integer initiationId;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "initiation_type")
     private String initiationType;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "initiationId", fetch = FetchType.LAZY)
-    private List<ActivityDetails> activityDetailsList;
+    private List<ActivityDetail> activityDetailList;
 
     public ActivityInitiationType() {
     }
@@ -69,12 +74,12 @@ public class ActivityInitiationType implements Serializable {
         this.initiationType = initiationType;
     }
 
-    public List<ActivityDetails> getActivityDetailsList() {
-        return activityDetailsList;
+    public List<ActivityDetail> getActivityDetailList() {
+        return activityDetailList;
     }
 
-    public void setActivityDetailsList(List<ActivityDetails> activityDetailsList) {
-        this.activityDetailsList = activityDetailsList;
+    public void setActivityDetailList(List<ActivityDetail> activityDetailList) {
+        this.activityDetailList = activityDetailList;
     }
 
     @Override
@@ -99,7 +104,7 @@ public class ActivityInitiationType implements Serializable {
 
     @Override
     public String toString() {
-        return "tech.hobbs.hlfdocmgmntsystem.model.ActivityInitiationTypes[ initiationId=" + initiationId + " ]";
+        return "tech.hobbs.hlfdocmgmntsystem.model.ActivityInitiationType[ initiationId=" + initiationId + " ]";
     }
     
 }

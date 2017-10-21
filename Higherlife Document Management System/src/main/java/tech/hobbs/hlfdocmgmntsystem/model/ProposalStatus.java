@@ -18,29 +18,32 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Wilsonc
+ * @author Wilson Chiviti
  */
 @Entity
 @Table(name = "proposal_statuses")
 @NamedQueries({
-    @NamedQuery(name = "ProposalStatuses.findAll", query = "SELECT p FROM ProposalStatuses p")
-    , @NamedQuery(name = "ProposalStatuses.findByProposalStatusId", query = "SELECT p FROM ProposalStatuses p WHERE p.proposalStatusId = :proposalStatusId")})
+    @NamedQuery(name = "ProposalStatus.findAll", query = "SELECT p FROM ProposalStatus p")
+    , @NamedQuery(name = "ProposalStatus.findByProposalStatusId", query = "SELECT p FROM ProposalStatus p WHERE p.proposalStatusId = :proposalStatusId")})
 public class ProposalStatus implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "proposal_status_id")
     private Integer proposalStatusId;
     @Basic(optional = false)
+    @NotNull
     @Lob
     @Column(name = "proposal_status")
-    private byte[] proposalStatus;
+    private String proposalStatus;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proposalStatusId", fetch = FetchType.LAZY)
-    private List<ActivityProposal> activityProposalsList;
+    private List<ActivityProposal> activityProposalList;
 
     public ProposalStatus() {
     }
@@ -49,58 +52,38 @@ public class ProposalStatus implements Serializable {
         this.proposalStatusId = proposalStatusId;
     }
 
-    public ProposalStatus(Integer proposalStatusId, byte[] proposalStatus) {
-        this.proposalStatusId = proposalStatusId;
-        this.proposalStatus = proposalStatus;
-    }
+	public Integer getProposalStatusId() {
+		return proposalStatusId;
+	}
 
-    public Integer getProposalStatusId() {
-        return proposalStatusId;
-    }
+	public void setProposalStatusId(Integer proposalStatusId) {
+		this.proposalStatusId = proposalStatusId;
+	}
 
-    public void setProposalStatusId(Integer proposalStatusId) {
-        this.proposalStatusId = proposalStatusId;
-    }
+	public String getProposalStatus() {
+		return proposalStatus;
+	}
 
-    public byte[] getProposalStatus() {
-        return proposalStatus;
-    }
+	public void setProposalStatus(String proposalStatus) {
+		this.proposalStatus = proposalStatus;
+	}
 
-    public void setProposalStatus(byte[] proposalStatus) {
-        this.proposalStatus = proposalStatus;
-    }
+	public List<ActivityProposal> getActivityProposalList() {
+		return activityProposalList;
+	}
 
-    public List<ActivityProposal> getActivityProposalsList() {
-        return activityProposalsList;
-    }
+	public void setActivityProposalList(List<ActivityProposal> activityProposalList) {
+		this.activityProposalList = activityProposalList;
+	}
 
-    public void setActivityProposalsList(List<ActivityProposal> activityProposalsList) {
-        this.activityProposalsList = activityProposalsList;
-    }
+	public ProposalStatus(Integer proposalStatusId, String proposalStatus,
+			List<ActivityProposal> activityProposalList) {
+		super();
+		this.proposalStatusId = proposalStatusId;
+		this.proposalStatus = proposalStatus;
+		this.activityProposalList = activityProposalList;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (proposalStatusId != null ? proposalStatusId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ProposalStatus)) {
-            return false;
-        }
-        ProposalStatus other = (ProposalStatus) object;
-        if ((this.proposalStatusId == null && other.proposalStatusId != null) || (this.proposalStatusId != null && !this.proposalStatusId.equals(other.proposalStatusId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "tech.hobbs.hlfdocmgmntsystem.model.ProposalStatuses[ proposalStatusId=" + proposalStatusId + " ]";
-    }
+    
     
 }

@@ -20,33 +20,40 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
- * @author Wilsonc
+ * @author Wilson Chiviti
  */
 @Entity
 @Table(name = "activity_videos")
 @NamedQueries({
-    @NamedQuery(name = "ActivityVideos.findAll", query = "SELECT a FROM ActivityVideos a")
-    , @NamedQuery(name = "ActivityVideos.findByVideoId", query = "SELECT a FROM ActivityVideos a WHERE a.videoId = :videoId")
-    , @NamedQuery(name = "ActivityVideos.findByActivityName", query = "SELECT a FROM ActivityVideos a WHERE a.activityName = :activityName")
-    , @NamedQuery(name = "ActivityVideos.findByDateOfActivity", query = "SELECT a FROM ActivityVideos a WHERE a.dateOfActivity = :dateOfActivity")})
+    @NamedQuery(name = "ActivityVideo.findAll", query = "SELECT a FROM ActivityVideo a")
+    , @NamedQuery(name = "ActivityVideo.findByVideoId", query = "SELECT a FROM ActivityVideo a WHERE a.videoId = :videoId")
+    , @NamedQuery(name = "ActivityVideo.findByActivityName", query = "SELECT a FROM ActivityVideo a WHERE a.activityName = :activityName")
+    , @NamedQuery(name = "ActivityVideo.findByDateOfActivity", query = "SELECT a FROM ActivityVideo a WHERE a.dateOfActivity = :dateOfActivity")})
 public class ActivityVideo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "video_id")
     private Integer videoId;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 300)
     @Column(name = "activity_name")
     private String activityName;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "date_of_activity")
     @Temporal(TemporalType.DATE)
     private Date dateOfActivity;
     @Basic(optional = false)
+    @NotNull
     @Lob
     @Column(name = "video")
     private byte[] video;
@@ -141,7 +148,7 @@ public class ActivityVideo implements Serializable {
 
     @Override
     public String toString() {
-        return "tech.hobbs.hlfdocmgmntsystem.model.ActivityVideos[ videoId=" + videoId + " ]";
+        return "tech.hobbs.hlfdocmgmntsystem.model.ActivityVideo[ videoId=" + videoId + " ]";
     }
     
 }

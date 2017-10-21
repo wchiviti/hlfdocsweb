@@ -16,29 +16,36 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
- * @author Wilsonc
+ * @author Wilson Chiviti
  */
 @Entity
-@Table(name = "tertiary_students")
+@Table(name = "tertiary_student")
 @NamedQueries({
-    @NamedQuery(name = "TertiaryStudents.findAll", query = "SELECT t FROM TertiaryStudents t")
-    , @NamedQuery(name = "TertiaryStudents.findById", query = "SELECT t FROM TertiaryStudents t WHERE t.id = :id")
-    , @NamedQuery(name = "TertiaryStudents.findByRegNo", query = "SELECT t FROM TertiaryStudents t WHERE t.regNo = :regNo")
-    , @NamedQuery(name = "TertiaryStudents.findByNationalId", query = "SELECT t FROM TertiaryStudents t WHERE t.nationalId = :nationalId")})
+    @NamedQuery(name = "TertiaryStudent.findAll", query = "SELECT t FROM TertiaryStudent t")
+    , @NamedQuery(name = "TertiaryStudent.findById", query = "SELECT t FROM TertiaryStudent t WHERE t.id = :id")
+    , @NamedQuery(name = "TertiaryStudent.findByRegNo", query = "SELECT t FROM TertiaryStudent t WHERE t.regNo = :regNo")
+    , @NamedQuery(name = "TertiaryStudent.findByNationalId", query = "SELECT t FROM TertiaryStudent t WHERE t.nationalId = :nationalId")})
 public class TertiaryStudent implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "reg_no")
     private String regNo;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "national_id")
     private String nationalId;
     @JoinColumn(name = "intake_id", referencedColumnName = "intake_id")
@@ -156,7 +163,7 @@ public class TertiaryStudent implements Serializable {
 
     @Override
     public String toString() {
-        return "tech.hobbs.hlfdocmgmntsystem.model.TertiaryStudents[ id=" + id + " ]";
+        return "tech.hobbs.hlfdocmgmntsystem.model.TertiaryStudent[ id=" + id + " ]";
     }
     
 }

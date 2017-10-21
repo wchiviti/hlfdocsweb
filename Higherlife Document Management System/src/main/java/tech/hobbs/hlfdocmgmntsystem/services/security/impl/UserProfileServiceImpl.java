@@ -8,26 +8,37 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tech.hobbs.hlfdocmgmntsystem.dao.security.UserProfileDao;
 import tech.hobbs.hlfdocmgmntsystem.model.security.UserProfile;
+import tech.hobbs.hlfdocmgmntsystem.model.security.UserProfileType;
 import tech.hobbs.hlfdocmgmntsystem.services.security.UserProfileService;
 
 
 
-@Service("userProfileService")
+@Service()
 @Transactional
 public class UserProfileServiceImpl implements UserProfileService{
 	
 	@Autowired
-	UserProfileDao dao;
+	UserProfileDao userProfileDao;
 	
 	public List<UserProfile> findAll() {
-		return dao.findAll();
+		return userProfileDao.findAll();
 	}
 
-	public UserProfile findByType(String type){
-		return dao.findByType(type);
+	public UserProfile findByType(UserProfileType userProfileType){
+		return userProfileDao.findByType(userProfileType);
 	}
 
 	public UserProfile findById(int id) {
-		return dao.findById(id);
+		return userProfileDao.findById(id);
+	}
+
+	@Override
+	public void saveOrUpdate(UserProfile model) {
+		userProfileDao.saveOrUpdate(model);		
+	}
+
+	@Override
+	public void delete(UserProfile model) {
+		userProfileDao.delete(model);
 	}
 }

@@ -1,5 +1,7 @@
 package tech.hobbs.hlfdocmgmntsystem.services.security.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,7 @@ import tech.hobbs.hlfdocmgmntsystem.services.security.UserService;
 public class UserServiceImpl implements UserService{
 
 	@Autowired
-	private UserDao dao;
+	private UserDao userDao;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -22,15 +24,25 @@ public class UserServiceImpl implements UserService{
 	
 	public void saveOrUpdate(User user){
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		dao.saveOrUpdate(user);
+		userDao.saveOrUpdate(user);
 	}
 	
 	public User findById(int id) {
-		return dao.findById(id);
+		return userDao.findById(id);
 	}
 
 	public User findBySso(String sso) {
-		return dao.findBySSO(sso);
+		return userDao.findBySSO(sso);
+	}
+
+	@Override
+	public List<User> findAll() {
+		return userDao.findAll();
+	}
+
+	@Override
+	public void delete(User model) {
+		userDao.delete(model);
 	}
 	
 }

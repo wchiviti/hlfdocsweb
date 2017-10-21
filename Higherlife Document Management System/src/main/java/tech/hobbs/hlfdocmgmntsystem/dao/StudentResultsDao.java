@@ -5,12 +5,12 @@ import java.util.List;
 import tech.hobbs.hlfdocmgmntsystem.dao.genericdao.AbstractDaoInterface;
 import tech.hobbs.hlfdocmgmntsystem.model.ResultsDecision;
 import tech.hobbs.hlfdocmgmntsystem.model.Student;
-import tech.hobbs.hlfdocmgmntsystem.model.StudentResults;
+import tech.hobbs.hlfdocmgmntsystem.model.StudentResult;
 
-public interface StudentResultsDao extends AbstractDaoInterface<StudentResults> {
+public interface StudentResultsDao extends AbstractDaoInterface<StudentResult> {
 	
-	List<StudentResults> findbyFileNo(Student student);
+	List<StudentResult> findbyFileNo(Student student);
 	
-	List<StudentResults> findByDecisionStatus(ResultsDecision decision);
+	List<StudentResult> findByDecisionStatus(ResultsDecision decision);
 
 }

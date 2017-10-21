@@ -17,28 +17,34 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
- * @author Wilsonc
+ * @author Wilson Chiviti
  */
 @Entity
 @Table(name = "quotations")
 @NamedQueries({
-    @NamedQuery(name = "Quotations.findAll", query = "SELECT q FROM Quotations q")
-    , @NamedQuery(name = "Quotations.findByQuotationId", query = "SELECT q FROM Quotations q WHERE q.quotationId = :quotationId")
-    , @NamedQuery(name = "Quotations.findByActivityName", query = "SELECT q FROM Quotations q WHERE q.activityName = :activityName")})
+    @NamedQuery(name = "Quotation.findAll", query = "SELECT q FROM Quotation q")
+    , @NamedQuery(name = "Quotation.findByQuotationId", query = "SELECT q FROM Quotation q WHERE q.quotationId = :quotationId")
+    , @NamedQuery(name = "Quotation.findByActivityName", query = "SELECT q FROM Quotation q WHERE q.activityName = :activityName")})
 public class Quotation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "quotation_id")
     private Integer quotationId;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 300)
     @Column(name = "activity_name")
     private String activityName;
     @Basic(optional = false)
+    @NotNull
     @Lob
     @Column(name = "quotation")
     private byte[] quotation;
@@ -113,7 +119,7 @@ public class Quotation implements Serializable {
 
     @Override
     public String toString() {
-        return "tech.hobbs.hlfdocmgmntsystem.model.Quotations[ quotationId=" + quotationId + " ]";
+        return "tech.hobbs.hlfdocmgmntsystem.model.Quotation[ quotationId=" + quotationId + " ]";
     }
     
 }

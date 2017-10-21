@@ -8,6 +8,7 @@ package tech.hobbs.hlfdocmgmntsystem.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,70 +22,88 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.context.annotation.Profile;
+
+import tech.hobbs.hlfdocmgmntsystem.model.security.User;
+import tech.hobbs.hlfdocmgmntsystem.model.security.UserProfile;
 
 /**
  *
- * @author Wilsonc
+ * @author Wilson Chiviti
  */
 @Entity
 @Table(name = "students")
 @NamedQueries({
-    @NamedQuery(name = "Students.findAll", query = "SELECT s FROM Students s")
-    , @NamedQuery(name = "Students.findById", query = "SELECT s FROM Students s WHERE s.id = :id")
-    , @NamedQuery(name = "Students.findByFileno", query = "SELECT s FROM Students s WHERE s.fileno = :fileno")
-    , @NamedQuery(name = "Students.findByName", query = "SELECT s FROM Students s WHERE s.name = :name")
-    , @NamedQuery(name = "Students.findBySurname", query = "SELECT s FROM Students s WHERE s.surname = :surname")
-    , @NamedQuery(name = "Students.findByDob", query = "SELECT s FROM Students s WHERE s.dob = :dob")
-    , @NamedQuery(name = "Students.findByCellNumber", query = "SELECT s FROM Students s WHERE s.cellNumber = :cellNumber")
-    , @NamedQuery(name = "Students.findByEmailAddress", query = "SELECT s FROM Students s WHERE s.emailAddress = :emailAddress")
-    , @NamedQuery(name = "Students.findByAge", query = "SELECT s FROM Students s WHERE s.age = :age")})
+    @NamedQuery(name = "Student.findAll", query = "SELECT s FROM Student s")
+    , @NamedQuery(name = "Student.findById", query = "SELECT s FROM Student s WHERE s.id = :id")
+    , @NamedQuery(name = "Student.findByFileno", query = "SELECT s FROM Student s WHERE s.fileno = :fileno")
+    , @NamedQuery(name = "Student.findByName", query = "SELECT s FROM Student s WHERE s.name = :name")
+    , @NamedQuery(name = "Student.findBySurname", query = "SELECT s FROM Student s WHERE s.surname = :surname")
+    , @NamedQuery(name = "Student.findByDob", query = "SELECT s FROM Student s WHERE s.dob = :dob")
+    , @NamedQuery(name = "Student.findByCellNumber", query = "SELECT s FROM Student s WHERE s.cellNumber = :cellNumber")
+    , @NamedQuery(name = "Student.findByEmailAddress", query = "SELECT s FROM Student s WHERE s.emailAddress = :emailAddress")
+    , @NamedQuery(name = "Student.findByAge", query = "SELECT s FROM Student s WHERE s.age = :age")})
 public class Student implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "id")
     private int id;
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "fileno")
     private String fileno;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 300)
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 300)
     @Column(name = "surname")
     private String surname;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "dob")
     @Temporal(TemporalType.DATE)
     private Date dob;
+    @Size(max = 50)
     @Column(name = "cell_number")
     private String cellNumber;
+    @Size(max = 100)
     @Column(name = "email_address")
     private String emailAddress;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "age")
     private int age;
-    @ManyToMany(mappedBy = "studentsList", fetch = FetchType.LAZY)
-    private List<Group> groupsList;
+    @ManyToMany(mappedBy = "studentList", fetch = FetchType.LAZY)
+    private List<UserProfile> profileList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fileno", fetch = FetchType.LAZY)
-    private List<ActivityImage> activityImagesList;
+    private List<ActivityImage> activityImageList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fileno", fetch = FetchType.LAZY)
-    private List<ProgressReport> progressReportsList;
+    private List<ProgressReport> progressReportList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fileno", fetch = FetchType.LAZY)
+    private List<TertiaryStudent> tertiaryStudentList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fileo", fetch = FetchType.LAZY)
-    private List<Quotation> quotationsList;
+    private List<Quotation> quotationList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fileno", fetch = FetchType.LAZY)
-    private List<ActivityVideo> activityVideosList;
+    private List<ActivityVideo> activityVideoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fileno", fetch = FetchType.LAZY)
-    private List<TertiaryStudent> tertiaryStudentsList;
+    private List<ActivityProposal> activityProposalList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fileno", fetch = FetchType.LAZY)
-    private List<ActivityProposal> activityProposalsList;
+    private List<StudentResult> studentResultList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fileno", fetch = FetchType.LAZY)
-    private List<StudentResults> studentResultsList;
+    private List<User> userList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fileno", fetch = FetchType.LAZY)
-    private List<User> usersList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fileno", fetch = FetchType.LAZY)
-    private List<ActivityReport> activityReportsList;
+    private List<ActivityReport> activityReportList;
 
     public Student() {
     }
@@ -166,84 +185,84 @@ public class Student implements Serializable {
         this.age = age;
     }
 
-    public List<Group> getGroupsList() {
-        return groupsList;
+    public List<UserProfile> getProfileList() {
+        return profileList;
     }
 
-    public void setGroupsList(List<Group> groupsList) {
-        this.groupsList = groupsList;
+    public void setProfileList(List<UserProfile> profileList) {
+        this.profileList = profileList;
     }
 
-    public List<ActivityImage> getActivityImagesList() {
-        return activityImagesList;
+    public List<ActivityImage> getActivityImageList() {
+        return activityImageList;
     }
 
-    public void setActivityImagesList(List<ActivityImage> activityImagesList) {
-        this.activityImagesList = activityImagesList;
+    public void setActivityImageList(List<ActivityImage> activityImageList) {
+        this.activityImageList = activityImageList;
     }
 
-    public List<ProgressReport> getProgressReportsList() {
-        return progressReportsList;
+    public List<ProgressReport> getProgressReportList() {
+        return progressReportList;
     }
 
-    public void setProgressReportsList(List<ProgressReport> progressReportsList) {
-        this.progressReportsList = progressReportsList;
+    public void setProgressReportList(List<ProgressReport> progressReportList) {
+        this.progressReportList = progressReportList;
     }
 
-    public List<Quotation> getQuotationsList() {
-        return quotationsList;
+    public List<TertiaryStudent> getTertiaryStudentList() {
+        return tertiaryStudentList;
     }
 
-    public void setQuotationsList(List<Quotation> quotationsList) {
-        this.quotationsList = quotationsList;
+    public void setTertiaryStudentList(List<TertiaryStudent> tertiaryStudentList) {
+        this.tertiaryStudentList = tertiaryStudentList;
     }
 
-    public List<ActivityVideo> getActivityVideosList() {
-        return activityVideosList;
+    public List<Quotation> getQuotationList() {
+        return quotationList;
     }
 
-    public void setActivityVideosList(List<ActivityVideo> activityVideosList) {
-        this.activityVideosList = activityVideosList;
+    public void setQuotationList(List<Quotation> quotationList) {
+        this.quotationList = quotationList;
     }
 
-    public List<TertiaryStudent> getTertiaryStudentsList() {
-        return tertiaryStudentsList;
+    public List<ActivityVideo> getActivityVideoList() {
+        return activityVideoList;
     }
 
-    public void setTertiaryStudentsList(List<TertiaryStudent> tertiaryStudentsList) {
-        this.tertiaryStudentsList = tertiaryStudentsList;
+    public void setActivityVideoList(List<ActivityVideo> activityVideoList) {
+        this.activityVideoList = activityVideoList;
     }
 
-    public List<ActivityProposal> getActivityProposalsList() {
-        return activityProposalsList;
+    public List<ActivityProposal> getActivityProposalList() {
+        return activityProposalList;
     }
 
-    public void setActivityProposalsList(List<ActivityProposal> activityProposalsList) {
-        this.activityProposalsList = activityProposalsList;
+    public void setActivityProposalList(List<ActivityProposal> activityProposalList) {
+        this.activityProposalList = activityProposalList;
     }
 
-    public List<StudentResults> getStudentResultsList() {
-        return studentResultsList;
+    public List<StudentResult> getStudentResultList() {
+        return studentResultList;
     }
 
-    public void setStudentResultsList(List<StudentResults> studentResultsList) {
-        this.studentResultsList = studentResultsList;
+    public void setStudentResultList(List<StudentResult> studentResultList) {
+        this.studentResultList = studentResultList;
     }
 
-    public List<User> getUsersList() {
-        return usersList;
+    public List<User> getUserList() {
+        return userList;
     }
 
-    public void setUsersList(List<User> usersList) {
-        this.usersList = usersList;
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
-    public List<ActivityReport> getActivityReportsList() {
-        return activityReportsList;
+    public List<ActivityReport> getActivityReportList() {
+        return activityReportList;
     }
 
-    public void setActivityReportsList(List<ActivityReport> activityReportsList) {
-        this.activityReportsList = activityReportsList;
+    public void setActivityReportList(List<ActivityReport> activityReportList) {
+        this.activityReportList = activityReportList;
     }
 
     @Override
@@ -268,7 +287,7 @@ public class Student implements Serializable {
 
     @Override
     public String toString() {
-        return "tech.hobbs.hlfdocmgmntsystem.model.Students[ fileno=" + fileno + " ]";
+        return "tech.hobbs.hlfdocmgmntsystem.model.Student[ fileno=" + fileno + " ]";
     }
     
 }

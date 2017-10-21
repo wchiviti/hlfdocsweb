@@ -20,33 +20,40 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
- * @author Wilsonc
+ * @author Wilson Chiviti
  */
 @Entity
 @Table(name = "activity_images")
 @NamedQueries({
-    @NamedQuery(name = "ActivityImages.findAll", query = "SELECT a FROM ActivityImages a")
-    , @NamedQuery(name = "ActivityImages.findByImageId", query = "SELECT a FROM ActivityImages a WHERE a.imageId = :imageId")
-    , @NamedQuery(name = "ActivityImages.findByActivityName", query = "SELECT a FROM ActivityImages a WHERE a.activityName = :activityName")
-    , @NamedQuery(name = "ActivityImages.findByDateOfActivity", query = "SELECT a FROM ActivityImages a WHERE a.dateOfActivity = :dateOfActivity")})
+    @NamedQuery(name = "ActivityImage.findAll", query = "SELECT a FROM ActivityImage a")
+    , @NamedQuery(name = "ActivityImage.findByImageId", query = "SELECT a FROM ActivityImage a WHERE a.imageId = :imageId")
+    , @NamedQuery(name = "ActivityImage.findByActivityName", query = "SELECT a FROM ActivityImage a WHERE a.activityName = :activityName")
+    , @NamedQuery(name = "ActivityImage.findByDateOfActivity", query = "SELECT a FROM ActivityImage a WHERE a.dateOfActivity = :dateOfActivity")})
 public class ActivityImage implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "image_id")
     private Integer imageId;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 300)
     @Column(name = "activity_name")
     private String activityName;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "date_of_activity")
     @Temporal(TemporalType.DATE)
     private Date dateOfActivity;
     @Basic(optional = false)
+    @NotNull
     @Lob
     @Column(name = "image")
     private byte[] image;
@@ -141,7 +148,7 @@ public class ActivityImage implements Serializable {
 
     @Override
     public String toString() {
-        return "tech.hobbs.hlfdocmgmntsystem.model.ActivityImages[ imageId=" + imageId + " ]";
+        return "tech.hobbs.hlfdocmgmntsystem.model.ActivityImage[ imageId=" + imageId + " ]";
     }
     
 }
