@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import tech.hobbs.hlfdocmgmntsystem.model.Student;
+import tech.hobbs.hlfdocmgmntsystem.model.student.Student;
 
 @Entity
 @Table(name = "users")

@@ -19,7 +19,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import tech.hobbs.hlfdocmgmntsystem.model.Student;
+import tech.hobbs.hlfdocmgmntsystem.model.student.Student;
 
 	
 @Entity
