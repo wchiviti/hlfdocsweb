@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import tech.hobbs.hlfdocmgmntsystem.model.student.Student;
+
 /**
  *
  * @author Wilson Chiviti
@@ -39,35 +41,46 @@ public class Message implements Serializable {
     @NotNull
     @Column(name = "message_id")
     private Integer messageId;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "recipient_fileno")
     private String recipientFileno;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "sender_fileno")
     private String senderFileno;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "message_subject")
     private String messageSubject;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 500)
     @Column(name = "message_text")
     private String messageText;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "read_status")
     private boolean readStatus;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "trashed")
     private boolean trashed;
 
+    
+    private Student recipientStudent;
+    
+    private Student senderStudent;
+    
     public Message() {
     }
 
@@ -140,28 +153,24 @@ public class Message implements Serializable {
     public void setTrashed(boolean trashed) {
         this.trashed = trashed;
     }
+    
+    public Student getRecipientStudent() {
+		return recipientStudent;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (messageId != null ? messageId.hashCode() : 0);
-        return hash;
-    }
+	public void setRecipientStudent(Student recipientStudent) {
+		this.recipientStudent = recipientStudent;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Message)) {
-            return false;
-        }
-        Message other = (Message) object;
-        if ((this.messageId == null && other.messageId != null) || (this.messageId != null && !this.messageId.equals(other.messageId))) {
-            return false;
-        }
-        return true;
-    }
+	public Student getSenderStudent() {
+		return senderStudent;
+	}
 
-    @Override
+	public void setSenderStudent(Student senderStudent) {
+		this.senderStudent = senderStudent;
+	}
+
+	@Override
     public String toString() {
         return "tech.hobbs.hlfdocmgmntsystem.model.Message[ messageId=" + messageId + " ]";
     }

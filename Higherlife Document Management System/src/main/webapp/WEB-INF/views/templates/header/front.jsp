@@ -8,20 +8,21 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet"
-	href="<c:url value = 'static/css/bootstrap.min.css' />" />
+	href="<c:url value = '/static/css/bootstrap.min.css' />" />
 <link rel="stylesheet"
-	href="<c:url value = 'static/css/bootstrap-responsive.min.css' />" />
+	href="<c:url value = '/static/css/bootstrap-responsive.min.css' />" />
 <link rel="stylesheet"
-	href="<c:url value = 'static/css/fullcalendar.css' />" />
+	href="<c:url value = '/static/css/fullcalendar.css' />" />
 <link rel="stylesheet"
-	href="<c:url value = 'static/css/matrix-style.css' />" />
+	href="<c:url value = '/static/css/matrix-style.css' />" />
 <link rel="stylesheet"
-	href="<c:url value = 'static/css/matrix-media.css' />" />
+	href="<c:url value = '/static/css/matrix-media.css' />" />
 <link
-	href="<c:url value = 'static/css/font-awesome/css/font-awesome.css' />"
+	href="<c:url value = '/static/css/font-awesome/css/font-awesome.css' />"
 	rel="stylesheet" />
 <link rel="stylesheet"
-	href="<c:url value = 'static/css/jquery.gritter.css' />" />
+	href="<c:url value = '/static/css/jquery.gritter.css' />" />
+<link rel="stylesheet" href="<c:url value = '/static/css/app.css' />" />
 <link
 	href='<c:url value = 'http://fonts.googleapis.com/css?family=Open+Sans:400,700,800'/>'
 	rel='stylesheet' type='text/css'>
@@ -31,8 +32,7 @@
 	<!--Header-part-->
 	<div id="header">
 		<h1>
-			<a href="">Global Leaders Document management
-				System</a>
+			<a href="">Global Leaders Document management System</a>
 		</h1>
 	</div>
 	<!--close-Header-part-->
@@ -86,7 +86,7 @@
 		</ul>
 	</div>
 	<!--close-top-Header-menu-->
-	
+
 	<!--start-top-serch-->
 	<div id="search">
 		<input type="text" placeholder="Search here..." />
@@ -101,58 +101,63 @@
 		<a href="#" class="visible-phone"><i class="icon icon-home"></i>
 			Dashboard</a>
 		<ul>
-			<li class="active"><a href="${pageContext.request.contextPath}/dashboard"><i
-					class="icon icon-home"></i> <span>Dashboard</span></a></li>
+			<li class=""><a href="${pageContext.request.contextPath}/home"
+				title="Go to Home"><i class="icon icon-home"></i> <span>Home</span></a></li>
+
+			<li class=""><a
+				href="${pageContext.request.contextPath}/dashboard"
+				title="Show Your Dashboard"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
+
 			<!-- <li><a href="charts.html"><i class="icon icon-signal"></i> <span>Activities</span></a></li> -->
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Activities</span> <!-- <span class="label label-important">1</span> --></a>
 				<ul>
 					<li><a href="#">Community Engagements</a></li>
 				</ul></li>
-				
-			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
+
+			<li class="submenu"><a href="${pageContext.request.contextPath}/registration"><i class="icon icon-th-list"></i>
 					<span>Proposals</span> <!-- <span class="label label-important">1</span> --></a>
 				<ul>
 					<li><a href="#">All Proposals</a></li>
 				</ul></li>
-			
+
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Quotations</span> <!-- <span class="label label-important">1</span> --></a>
 				<ul>
 					<li><a href="#">All Quotations</a></li>
 				</ul></li>
-			
+
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Progress Reports</span> <!-- <span class="label label-important">1</span> --></a>
 				<ul>
 					<li><a href="#">All Reports </a></li>
 				</ul></li>
-			
+
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Results</span> <!-- <span class="label label-important">1</span> --></a>
 				<ul>
 					<li><a href="#">My Results</a></li>
 				</ul></li>
-			
+
 			<li class="content"><span>Semester Activity Progress</span>
 				<div
 					class="progress progress-mini ${progressBarType} progress-danger active progress-striped">
 					<div style="width: ${progrressPercentage}%;" class="bar"></div>
 				</div> <span class="percent">${progrressPercentage}</span>
-				<div class="stat">${activityNumber} / 6</div></li>
-				
+				<div class="stat">${activityNumber}/ 6</div></li>
+
 			<!-- <li class="content"><span>Disk Space Usage</span>
 				<div class="progress progress-mini active progress-striped">
 					<div style="width: 87%;" class="bar"></div>
 				</div> <span class="percent">87%</span>
 				<div class="stat">604.44 / 4000 MB</div></li> -->
-				
+
 			<li class="content"><span>Semester Activity Progress</span>
 				<div
 					class="progress progress-mini ${progressBarType} progress-danger active progress-striped">
 					<div style="width: ${progrressPercentage}%;" class="bar"></div>
 				</div> <span class="percent">${progrressPercentage}</span>
-				<div class="stat">${activityNumber} / 6</div></li>
+				<div class="stat">${activityNumber}/ 6</div></li>
 		</ul>
 	</div>
 	<!--sidebar-menu-->
@@ -162,7 +167,10 @@
 		<!--breadcrumbs-->
 		<div id="content-header">
 			<div id="breadcrumb">
-				<a href="${pageContext.request.contextPath}/home" title="Go to Home" class="tip-bottom"><i
-					class="icon-home"></i> Home</a>
+				<i class="icon-home"></i>
+				<h1>
+					<strong>Global Leader Document Management System and
+						Communication</strong>
+				</h1>
 			</div>
 		</div>

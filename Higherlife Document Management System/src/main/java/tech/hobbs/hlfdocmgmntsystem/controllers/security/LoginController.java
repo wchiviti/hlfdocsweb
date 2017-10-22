@@ -39,6 +39,12 @@ public class LoginController {
 		System.out.println("we come home");
 		return "login";
 	}
+	
+	@RequestMapping(value = { "/registration"}, method = RequestMethod.GET)
+	public String registration(ModelMap model) {
+		System.out.println("we come to registration");
+		return "registration";
+	}
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String adminPage(ModelMap model) {

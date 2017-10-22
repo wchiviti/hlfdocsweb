@@ -4,33 +4,25 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Login | Global Leader Document management System</title>
-<link href="<c:url value = '/static/css/login/menu.css'/>"
-	rel="stylesheet" />
-<link href="<c:url value = '/static/css/login/container.css'/>"
-	rel="stylesheet" />
-<link href="<c:url value = '/static/css/login/jquery-confirm.css'/>"
-	rel="stylesheet" />
-<link href="<c:url value = '/static/css/font-awesome.min.css'/>"
-	rel="stylesheet" />
-<link href="<c:url value = '/static/css/font-awesome.css'/>"
-	rel="stylesheet" />
+<title>TheGreat | Registration</title>
+<link href="<c:url value = '/static/css/login/menu.css'/>" rel="stylesheet" />
+<link href="<c:url value = '/static/css/login/container.css'/>" rel="stylesheet" />
+<link href="<c:url value = '/static/css/login/jquery-confirm.css'/>" rel="stylesheet" />
+<link href="<c:url value = '/static/css/font-awesome.min.css'/>" rel="stylesheet" />
+<link href="<c:url value = '/static/css/font-awesome.css'/>" rel="stylesheet" />
 </head>
 <body>
-	<div class="top-head" style="">Global Leaders Document management
-		System</div>
+	<div class="top-head" style="">Global Leaders Document management System</div>
 	<div id="wrap">
 		<header>
 			<div class="inner relative">
-				<a class="logo" href="#"> <img
-					src="<c:url value = 'static/img/docs_icon.jpg'/>" alt="logo" />
+				<a class="logo" href="#"> <img src="<c:url value = 'static/img/docs_icon.jpg'/>" alt="" />
 				</a> <a id="menu-toggle" class="Button dark" href="#"><i
 					class="icon-reorder"></i></a>
 				<nav id="navigation">
 					<ul id="main-menu">
-						<li><a
-							href="${pageContext.request.contextPath}/registration">Registration</a></li>
-						<li class="current-menu-item"><a href="#">Login</a></li>
+						<li class="current-menu-item"><a href="registration.html">Registration</a></li>
+						<li><a href="${pageContext.request.contextPath}/login">Login</a></li>
 						<li class="parent"><a href="#">Help</a>
 							<ul class="sub-menu">
 								<li><a href="about.html">About</a></li>
@@ -49,12 +41,18 @@
 		</header>
 	</div>
 	<div class="containerBox">
-		<c:url var="loginUrl" value="/login" />
-		<form action="${loginUrl}" method="post">
+		<form>
 			<div class="row">
-				<h2>Login</h2>
+				<h2>Registration</h2>
 				<div class="input-group input-group-icon">
-					<input id="txtemail" type="text" placeholder="Username" />
+					<input id="txtemail" type="email" placeholder="Email Address" />
+					<div class="input-icon">
+						<i class="fa fa-envelope"></i>
+					</div>
+				</div>
+				<div class="input-group input-group-icon">
+					<input id="txtReemail" type="email"
+						placeholder="Re-Enter Email Address" />
 					<div class="input-icon">
 						<i class="fa fa-envelope"></i>
 					</div>
@@ -64,6 +62,21 @@
 					<div class="input-icon">
 						<i class="fa fa-key"></i>
 					</div>
+				</div>
+				<div class="input-group input-group-icon">
+					<input id="txtrepassword" type="password"
+						placeholder="Re-Enter Password" />
+					<div class="input-icon">
+						<i class="fa fa-key"></i>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<h4>Terms and Conditions</h4>
+				<div class="input-group">
+					<input type="checkbox" id="terms" /> <label for="terms">I
+						accept the terms and conditions for signing up to this service,
+						and hereby confirm I have read the privacy policy.</label>
 				</div>
 			</div>
 			<div class="row">
@@ -84,7 +97,7 @@
 				<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
 			</ul>
 			<div class="text-center">
-				<p>Design And Developed by Hobbs tech. Copyright &copy; 2017.</p>
+				<p>Design And Developed by TheGreat. Copyright &copy; 2017.</p>
 			</div>
 		</div>
 	</footer>

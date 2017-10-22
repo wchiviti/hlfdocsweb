@@ -70,9 +70,13 @@ public class Activity implements Serializable {
     private Date dateOfActivity;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "activityId", fetch = FetchType.LAZY)
     private List<ActivityDetail> activityDetailList;
-    @JoinColumn(name = "tertiary_code", referencedColumnName = "tertiary_code")
+    
+    @JoinColumn(name = "tertiary_code", referencedColumnName = "tertiary_code", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private TertiaryInstitution tertiaryCode;
+    private TertiaryInstitution tertiaryInstitution;
+    
+    @Column(name = "tertiary_code")
+    private String tertiaryCode;
 
     public Activity() {
     }
@@ -137,15 +141,25 @@ public class Activity implements Serializable {
         this.activityDetailList = activityDetailList;
     }
 
-    public TertiaryInstitution getTertiaryCode() {
-        return tertiaryCode;
-    }
+    
 
-    public void setTertiaryCode(TertiaryInstitution tertiaryCode) {
-        this.tertiaryCode = tertiaryCode;
-    }
+    public TertiaryInstitution getTertiaryInstitution() {
+		return tertiaryInstitution;
+	}
 
-    @Override
+	public void setTertiaryInstitution(TertiaryInstitution tertiaryInstitution) {
+		this.tertiaryInstitution = tertiaryInstitution;
+	}
+
+	public String getTertiaryCode() {
+		return tertiaryCode;
+	}
+
+	public void setTertiaryCode(String tertiaryCode) {
+		this.tertiaryCode = tertiaryCode;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (activityId != null ? activityId.hashCode() : 0);

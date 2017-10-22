@@ -33,22 +33,34 @@ import tech.hobbs.hlfdocmgmntsystem.model.student.Student;
 public class ActivityProposal implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "proposal_id")
     private Integer proposalId;
+    
     @Basic(optional = false)
     @NotNull
     @Lob
     @Column(name = "proposalfile")
     private byte[] proposalfile;
+    
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "proposal_description")
+    private String proposalDescription;
+    
     @JoinColumn(name = "proposal_status_id", referencedColumnName = "proposal_status_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ProposalStatus proposalStatusId;
-    @JoinColumn(name = "fileno", referencedColumnName = "fileno")
+    
+    @JoinColumn(name = "fileno", referencedColumnName = "fileno", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Student fileno;
+    private Student student;
+    
+    @Column(name = "fileno")
+    private String fileno;
 
     public ActivityProposal() {
     }
@@ -62,7 +74,15 @@ public class ActivityProposal implements Serializable {
         this.proposalfile = proposalfile;
     }
 
-    public Integer getProposalId() {
+    public String getProposalDescription() {
+		return proposalDescription;
+	}
+
+	public void setProposalDescription(String proposalDescription) {
+		this.proposalDescription = proposalDescription;
+	}
+
+	public Integer getProposalId() {
         return proposalId;
     }
 
@@ -86,15 +106,23 @@ public class ActivityProposal implements Serializable {
         this.proposalStatusId = proposalStatusId;
     }
 
-    public Student getFileno() {
-        return fileno;
-    }
+    public Student getStudent() {
+		return student;
+	}
 
-    public void setFileno(Student fileno) {
-        this.fileno = fileno;
-    }
+	public void setStudent(Student student) {
+		this.student = student;
+	}
 
-    @Override
+	public String getFileno() {
+		return fileno;
+	}
+
+	public void setFileno(String fileno) {
+		this.fileno = fileno;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (proposalId != null ? proposalId.hashCode() : 0);
